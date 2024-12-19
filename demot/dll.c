@@ -95,6 +95,20 @@ void print_list(DoublyLinkedList* list) {
     printf("\n");
 }
 
+void free_list(DoublyLinkedList* list) {
+    CollisionPair* current = list->head;
+    CollisionPair* next;
+
+    while (current != NULL) {
+        next = current->next_pair;
+        free(current);
+        current = next;
+    }
+
+    list->head = NULL;
+    list->tail = NULL;
+}
+
 int main() {
     DoublyLinkedList list = {NULL, NULL}; // Initialize an empty list
 
@@ -111,6 +125,9 @@ int main() {
 
     // Print the list
     print_list(&list);
+
+    // Free the list
+    free_list(&list);
 
     return 0;
 }
